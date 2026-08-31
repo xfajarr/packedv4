@@ -1,4 +1,10 @@
+# foundry
+cache/
+out/
+broadcast/
 
+# secrets — never commit
 .env
 *.key
 launch.json
+receipt.json
