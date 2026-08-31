@@ -62,7 +62,7 @@ contract BasketHookTest is Test {
         assertEq(address(hook), predicted, "CREATE2 mismatch");
 
         // The token's only fee source is the hook.
-        token = new BasketToken(address(hook), alice, 1000e18);
+        token = new BasketToken(address(hook), makeAddr("vault"), alice, 1000e18);
     }
 
     function _key() internal view returns (PoolKey memory) {

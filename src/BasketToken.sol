@@ -29,6 +29,9 @@ contract BasketToken {
     uint256 public undistributed;
 
     address public immutable feeSource;
+    /// @notice The only address allowed to pull a holder's accrued ETH for basket
+    ///         settlement. Set at deploy, no setter.
+    address public immutable basketVault;
 
     event Transfer(address indexed from, address indexed to, uint256 value);
     event Approval(address indexed owner, address indexed spender, uint256 value);
@@ -40,9 +43,11 @@ contract BasketToken {
     error InsufficientAllowance();
     error NothingToClaim();
     error TransferFailed();
+    error NotBasketVault();
 
-    constructor(address _feeSource, address mintTo, uint256 supply) {
+    constructor(address _feeSource, address _basketVault, address mintTo, uint256 supply) {
         feeSource = _feeSource;
+        basketVault = _basketVault;
         totalSupply = supply;
         balanceOf[mintTo] = supply;
         emit Transfer(address(0), mintTo, supply);
@@ -104,6 +109,18 @@ contract BasketToken {
             if (!ok) revert TransferFailed();
         }
         emit Claimed(holder, msg.sender, owed, tip);
+    }
+
+    /// @notice Pull a holder's accrued ETH to the vault, which owes them the basket.
+    ///         Only the vault may call this; the ETH never reaches the caller.
+    function claimToVault(address holder) external returns (uint256 owed) {
+        if (msg.sender != basketVault) revert NotBasketVault();
+        _sync(holder);
+        owed = _credited[holder];
+        if (owed == 0) return 0;
+        _credited[holder] = 0;
+        (bool ok,) = msg.sender.call{value: owed}("");
+        if (!ok) revert TransferFailed();
     }
 
     /* ------------------------------------------------------------------ erc20 */

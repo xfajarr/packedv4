@@ -10,9 +10,10 @@ contract BasketTokenTest is Test {
     address alice = makeAddr("alice");
     address bob = makeAddr("bob");
     address bot = makeAddr("bot");
+    address vault = makeAddr("vault");
 
     function setUp() public {
-        t = new BasketToken(hook, address(this), 1000e18);
+        t = new BasketToken(hook, vault, address(this), 1000e18);
         vm.deal(hook, 1000 ether);
     }
 
@@ -87,7 +88,7 @@ contract BasketTokenTest is Test {
     }
 
     function test_feeBeforeAnySupplyIsHeldNotBurned() public {
-        BasketToken empty = new BasketToken(hook, address(this), 0);
+        BasketToken empty = new BasketToken(hook, vault, address(this), 0);
         vm.prank(hook);
         empty.depositFee{value: 10 ether}();
         assertEq(empty.undistributed(), 10 ether, "held for the next deposit");
