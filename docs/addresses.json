@@ -1,0 +1,21 @@
+{
+  "_note": "Verified against Robinhood Chain (4663) on 2026-08-31 via blockscout. Three contracts are named 'PoolManager'; only one is canonical. Uniswap v4 is a singleton, so the real PoolManager custodies every pool's liquidity — 8,877 ETH. The other two hold zero ETH and only memecoins: they are copies deployed by meme-launch factories. Picking one of those would swap into empty pools while every local test still passed.",
+  "chainId": "4663",
+  "caip2": "eip155:4663",
+  "canonical": {
+    "poolManager": "0x8366a39CC670B4001A1121B8F6A443A643e40951",
+    "permit2": "0x000000000022D473030F116dDEE9F6B43aC78BA3"
+  },
+  "evidence": {
+    "poolManager": { "ethBalance": "8877.1907", "holdsNVDA": "13366.375294072215750015" },
+    "permit2": "matches the const in Programmable's v4 schema permit2GenesisProvenance.address"
+  },
+  "decoys": [
+    { "address": "0xb4e333be9b6609eE22B586792d1CFD6ef1357749", "name": "PoolManager", "ethBalance": "0", "holds": ["FRGBAF", "MGM", "HPTHRUST", "CNDLTRS", "GRLM"] },
+    { "address": "0x533b3B596f8E8A39a341DD5F6672418e95B72Ac3", "name": "PoolManager", "ethBalance": "0", "holds": ["STOFISH"] }
+  ],
+  "unresolved": {
+    "universalRouter": "multiple candidates; not needed — the adapter talks to PoolManager directly",
+    "constituentPoolKeys": "each stock token's pool fee/tickSpacing/hooks must be discovered before deploy"
+  }
+}
