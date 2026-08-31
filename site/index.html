@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BASKET — hold the token, get paid in stocks</title>
+<meta name="description" content="A Uniswap v4 hook on Robinhood Chain. Every swap pays a fee that accrues to holders and settles into tokenized equities. Settlement is batched, so small shares stay worth collecting.">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#0e0d0b;--surface:#171613;--surface2:#1f1e1a;--line:#2b2924;--line2:#3b3830;
+  --fg:#e9e6de;--mid:#a9a498;--dim:#6e6a60;
+  --accent:#e0a340;--accent-dim:#7e5c24;--wash:#241c0e;
+  --ok:#6b8f6b;--unk:#5e7c8a;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --sans:"IBM Plex Sans",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* reveal */
+/* Hidden only once JS confirms it can reveal them again. Without JS, or if the
+   observer never fires, every section stays visible instead of blank. */
+.js .r{opacity:0;transform:translateY(14px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
+.js .r.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.js .r{opacity:1;transform:none;transition:none}}
+
+/* nav */
+nav{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(14,13,11,.88);backdrop-filter:blur(10px);z-index:20}
+.nav{display:flex;align-items:center;justify-content:space-between;height:58px}
+.brand{font-family:var(--mono);font-weight:700;letter-spacing:-.02em;font-size:15px}
+.brand i{color:var(--accent);font-style:normal}
+.navlinks{display:flex;gap:20px;font-family:var(--mono);font-size:12px}
+.navlinks a{color:var(--mid);text-decoration:none}
+.navlinks a:hover{color:var(--fg)}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--unk);border:1px solid var(--unk);padding:2px 8px;border-radius:2px}
+
+/* hero */
+header{padding:92px 0 76px;border-bottom:1px solid var(--line)}
+h1{font-family:var(--mono);font-weight:700;font-size:clamp(34px,6.2vw,60px);line-height:1.04;letter-spacing:-.035em;margin:0 0 22px;text-wrap:balance}
+h1 em{font-style:normal;color:var(--accent)}
+.lede{font-size:18px;color:var(--mid);max-width:60ch;margin:0 0 34px}
+.lede b{color:var(--fg);font-weight:500}
+.chain{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:34px}
+.chip{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--mid);border:1px solid var(--line2);border-radius:2px;padding:5px 10px}
+.chip b{color:var(--accent);font-weight:500}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.btn{font-family:var(--mono);font-size:13px;text-decoration:none;padding:11px 18px;border-radius:3px;border:1px solid var(--line2);color:var(--fg)}
+.btn.p{background:var(--accent);border-color:var(--accent);color:#17140c;font-weight:700}
+.btn:hover{border-color:var(--accent)}
+
+/* flow */
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:0 0 8px;overflow:hidden}
+.step{background:var(--surface);padding:22px 20px;position:relative}
+.step .n{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--dim)}
+.step h3{font-family:var(--mono);font-size:15px;margin:8px 0 7px;font-weight:700}
+.step p{font-size:13.5px;color:var(--mid);margin:0}
+.step::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--accent);transition:width .8s ease}
+.step.in::after{width:100%}
+
+section{padding:76px 0;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+h2{font-family:var(--mono);font-size:clamp(22px,3.4vw,30px);font-weight:700;letter-spacing:-.025em;margin:0 0 16px;text-wrap:balance}
+.sub{color:var(--mid);max-width:62ch;margin:0 0 34px}
+
+/* basket */
+.basket{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:900px){.basket{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:520px){.basket{grid-template-columns:1fr}}
+.asset{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:18px}
+.asset .sym{font-family:var(--mono);font-size:19px;font-weight:700;letter-spacing:-.02em}
+.asset .co{font-size:12.5px;color:var(--dim);margin:2px 0 14px}
+.asset .w{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.06em}
+.bar{height:3px;background:var(--surface2);border-radius:2px;overflow:hidden;margin:8px 0 14px}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width 1s cubic-bezier(.2,.7,.2,1)}
+.asset.in .bar i{width:25%}
+.addr{font-family:var(--mono);font-size:10.5px;color:var(--dim);word-break:break-all;line-height:1.5}
+
+/* compare */
+.cmp{display:grid;gap:14px;max-width:640px}
+.row{display:grid;grid-template-columns:150px 1fr 90px;gap:14px;align-items:center;font-family:var(--mono);font-size:12px}
+.row .lbl{color:var(--mid)}
+.track{height:26px;background:var(--surface2);border:1px solid var(--line);border-radius:2px;overflow:hidden}
+.track i{display:block;height:100%;width:0;transition:width 1.1s cubic-bezier(.2,.7,.2,1)}
+.row.a .track i{background:var(--accent-dim)}
+.row.b .track i{background:var(--accent)}
+.cmp.in .row.a .track i{width:100%}
+.cmp.in .row.b .track i{width:33.7%}
+.val{text-align:right;font-variant-numeric:tabular-nums;color:var(--fg)}
+.saving{font-family:var(--mono);font-size:clamp(40px,8vw,72px);font-weight:700;color:var(--accent);letter-spacing:-.04em;line-height:1;margin:28px 0 6px}
+
+/* facts */
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+@media(max-width:560px){.facts{grid-template-columns:1fr}}
+.fact{background:var(--surface);padding:20px}
+.fact dt{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:7px}
+.fact dd{margin:0;font-family:var(--mono);font-size:14px;word-break:break-all;line-height:1.5}
+.fact dd small{color:var(--mid);font-family:var(--sans);font-size:12.5px;display:block;margin-top:5px;word-break:normal}
+
+.note{border-left:2px solid var(--accent-dim);padding:2px 0 2px 18px;color:var(--mid);font-size:14.5px;max-width:62ch}
+footer{padding:44px 0 64px;font-family:var(--mono);font-size:12px;color:var(--dim);line-height:1.9}
+footer a{color:var(--mid)}
+@media(max-width:600px){.row{grid-template-columns:1fr;gap:6px}.navlinks{display:none}}
+</style></head><body>
+
+<nav><div class="wrap nav">
+  <span class="brand">BAS<i>KET</i></span>
+  <div class="navlinks">
+    <a href="#how">Mechanism</a><a href="#basket">Basket</a><a href="#batch">Batching</a><a href="#contracts">Contracts</a>
+  </div>
+  <span class="tag">pre-launch</span>
+</div></nav>
+
+<header><div class="wrap">
+  <h1 class="r">Hold the token.<br>Get paid in <em>stocks</em>.</h1>
+  <p class="lede r">Every swap pays a fee. It doesn't go to a team — it accrues to holders,
+    pro-rata by balance at the moment it lands, and settles into a fixed basket of
+    tokenized equities. <b>Your share is frozen when it accrues: selling never claws back
+    what you already earned.</b></p>
+  <div class="chain r">
+    <span class="chip">Robinhood Chain · <b>4663</b></span>
+    <span class="chip">Uniswap <b>v4 hook</b></span>
+    <span class="chip">buy <b>2%</b> · sell <b>3%</b></span>
+    <span class="chip">team allocation <b>0%</b></span>
+    <span class="chip">no mint · no setter</span>
+  </div>
+  <div class="cta r">
+    <a class="btn p" href="https://github.com/xfajarr/packedv4">Read the contracts</a>
+    <a class="btn" href="#batch">Why batching matters</a>
+  </div>
+</div></header>
+
+<section id="how"><div class="wrap">
+  <p class="eyebrow r">Mechanism</p>
+  <h2 class="r">One loop, enforced by the hook</h2>
+  <p class="sub r">No multisig deciding who gets paid, no discretionary treasury, and no keeper
+    that has to stay alive for you to get your money.</p>
+  <div class="flow">
+    <div class="step r"><div class="n">01</div><h3>Trade</h3><p>Every buy and sell pays a fee, taken in ETH on both sides.</p></div>
+    <div class="step r"><div class="n">02</div><h3>Accrue</h3><p>Split across holders instantly, weighted by balance at that moment.</p></div>
+    <div class="step r"><div class="n">03</div><h3>Settle</h3><p>The basket is bought once for many holders and split between them.</p></div>
+    <div class="step r"><div class="n">04</div><h3>Receive</h3><p>Every constituent lands in your own wallet. Nothing is held for you.</p></div>
+  </div>
+  <p class="note r" style="margin-top:26px">Anyone can settle on anyone's behalf. The assets always
+    go to the holder; the caller takes a small tip for the gas. So an indexer can settle
+    everyone, and no share is ever stranded because someone forgot to claim.</p>
+</div></section>
+
+<section id="basket"><div class="wrap">
+  <p class="eyebrow r">The basket</p>
+  <h2 class="r">Four equities, fixed at deploy</h2>
+  <p class="sub r">Constructor arguments with no setter behind them. Nobody can swap a name out,
+    add a fifth, or point a leg somewhere else — not the deployer, not anyone. Addresses
+    below were read from Robinhood Chain and verified.</p>
+  <div class="basket">
+    <div class="asset r"><div class="sym">NVDA</div><div class="co">NVIDIA · Robinhood Token</div>
+      <div class="w">25%</div><div class="bar"><i></i></div>
+      <div class="addr">0xd0601CE157Db5bdC3162BbaC2a2C8aF5320D9EEC</div></div>
+    <div class="asset r"><div class="sym">AAPL</div><div class="co">Apple · Robinhood Token</div>
+      <div class="w">25%</div><div class="bar"><i></i></div>
+      <div class="addr">0xaF3D76f1834A1d425780943C99Ea8A608f8a93f9</div></div>
+    <div class="asset r"><div class="sym">TSLA</div><div class="co">Tesla · Robinhood Token</div>
+      <div class="w">25%</div><div class="bar"><i></i></div>
+      <div class="addr">0x322F0929c4625eD5bAd873c95208D54E1c003b2d</div></div>
+    <div class="asset r"><div class="sym">AMZN</div><div class="co">Amazon · Robinhood Token</div>
+      <div class="w">25%</div><div class="bar"><i></i></div>
+      <div class="addr">0x12f190a9F9d7D37a250758b26824B97CE941bF54</div></div>
+  </div>
+</div></section>
+
+<section id="batch"><div class="wrap">
+  <p class="eyebrow r">The difference</p>
+  <h2 class="r">Small shares stay worth collecting</h2>
+  <p class="sub r">Make every holder buy their own basket and each one pays for a full set of
+    swaps. A small holder's share ends up worth less than the gas to collect it, so it
+    never gets collected. Buying the basket once for a whole batch collapses that cost.</p>
+  <div class="cmp r">
+    <div class="row a"><span class="lbl">one at a time</span><span class="track"><i></i></span><span class="val" data-to="8152975">0</span></div>
+    <div class="row b"><span class="lbl">batched</span><span class="track"><i></i></span><span class="val" data-to="2748484">0</span></div>
+  </div>
+  <div class="saving r"><span data-to="67">0</span>%</div>
+  <p class="note r">less gas to settle ten holders. Measured in the test suite, not estimated —
+    the mock swap is calibrated to a real v4 swap so the comparison means something.</p>
+</div></section>
+
+<section id="contracts"><div class="wrap">
+  <p class="eyebrow r">Verified</p>
+  <h2 class="r">What we checked, and how</h2>
+  <dl class="facts r">
+    <div class="fact"><dt>Stock tokens</dt><dd>freely transferable
+      <small>Two third-party write-ups claimed whitelist-gated transfers. A simulated transfer from a real holder to an address that has never been onboarded succeeds.</small></dd></div>
+    <div class="fact"><dt>PoolManager</dt><dd>0x8366a39C…0951
+      <small>Three contracts on this chain are named PoolManager. v4 is a singleton, so the real one custodies every pool — 8,877 ETH. The other two hold zero ETH and only memecoins.</small></dd></div>
+    <div class="fact"><dt>Token standard</dt><dd>ERC-20 + ERC-8056
+      <small>A corporate-action multiplier moves shares-per-token on splits and dividends while raw balances stay put. Read it wrong and the basket breaks on the first split.</small></dd></div>
+    <div class="fact"><dt>Opcode scan</dt><dd>clean
+      <small>No SELFDESTRUCT, no CALLCODE, in any of the three contracts. Scanned with a PUSH-aware parser, not a substring grep.</small></dd></div>
+  </dl>
+</div></section>
+
+<footer><div class="wrap">
+  <a href="https://github.com/xfajarr/packedv4">GitHub</a> ·
+  <a href="https://programmable.market">Launched via Programmable</a> ·
+  <a href="https://robinhoodchain.blockscout.com">Explorer</a>
+  <p style="margin:14px 0 0">Pre-launch. No token has been deployed and no figures on this page
+  describe live trading. Tokenized equities are issued by Robinhood and may be unavailable in
+  some jurisdictions. Not investment advice.</p>
+</div></footer>
+
+<script>
+const io = new IntersectionObserver((es) => {
+  es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); count(e.target); io.unobserve(e.target) } })
+}, { threshold: 0, rootMargin: '0px 0px -8% 0px' });
+document.querySelectorAll('.r,.step,.asset,.cmp').forEach(el => io.observe(el));
+
+addEventListener('load', () => setTimeout(() => {
+  document.querySelectorAll('.r:not(.in)').forEach(el => {
+    if (el.getBoundingClientRect().top < innerHeight) { el.classList.add('in'); count(el) }
+  });
+}, 60));
+
+function count(root) {
+  root.querySelectorAll('[data-to]').forEach(el => {
+    const to = +el.dataset.to, t0 = performance.now(), d = 1100;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) { el.textContent = to.toLocaleString('en-US'); return }
+    const tick = (t) => {
+      const p = Math.min(1, (t - t0) / d), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(to * e).toLocaleString('en-US');
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
+}
+</script>
+</body></html>

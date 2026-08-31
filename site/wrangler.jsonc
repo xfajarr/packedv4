@@ -1,0 +1,7 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "basket-hook",
+  "compatibility_date": "2026-08-01",
+  "assets": { "directory": "." },
+  "workers_dev": true
+}
