@@ -1,0 +1,218 @@
+{
+  "schemaVersion": "programmable.launch-pack-config.v4",
+  "launchWallet": "0x6D8889Bc0D4BdAB2D14db3b979491042B6691996",
+  "chainId": "4663",
+  "caip2": "eip155:4663",
+  "nonce": "0xda024e16db8154b33a7e3595068be5496718759c44637f9cbd463ec574e22c85",
+  "source": {
+    "root": "src",
+    "paths": [
+      "BasketHook.sol",
+      "BasketToken.sol",
+      "BasketVault.sol",
+      "IBasketToken.sol",
+      "IBasketRouter.sol"
+    ],
+    "sourceLineageNonce": "1",
+    "publicOrigin": {
+      "url": "https://github.com/xfajarr/packedv4",
+      "revision": "TODO_COMMIT_SHA_40_HEX"
+    }
+  },
+  "compilationUnits": [
+    {
+      "compilationUnitId": "basket",
+      "standardJson": "build/standard-input.json"
+    }
+  ],
+  "targets": [
+    {
+      "targetId": "vault",
+      "compilationUnitId": "basket",
+      "artifact": "out/BasketVault.sol/BasketVault.json",
+      "componentKind": "other",
+      "applicantSalt": "TODO",
+      "constructorArguments": [
+        "TODO_router",
+        "TODO_constituents[]",
+        "TODO_weights[]"
+      ],
+      "deploymentValueWei": "0",
+      "initializerValueWei": "0"
+    },
+    {
+      "targetId": "hook",
+      "compilationUnitId": "basket",
+      "artifact": "out/BasketHook.sol/BasketHook.json",
+      "componentKind": "hook",
+      "applicantSalt": "TODO_MINED_FOR_0xCC",
+      "constructorArguments": [
+        "TODO_poolManager"
+      ],
+      "declaredHookPermissions": {
+        "beforeSwap": true,
+        "afterSwap": true,
+        "beforeSwapReturnDelta": true,
+        "afterSwapReturnDelta": true,
+        "beforeInitialize": false,
+        "afterInitialize": false,
+        "beforeAddLiquidity": false,
+        "afterAddLiquidity": false,
+        "beforeRemoveLiquidity": false,
+        "afterRemoveLiquidity": false,
+        "beforeDonate": false,
+        "afterDonate": false,
+        "afterAddLiquidityReturnDelta": false,
+        "afterRemoveLiquidityReturnDelta": false
+      },
+      "deploymentValueWei": "0",
+      "initializerValueWei": "0"
+    },
+    {
+      "targetId": "token",
+      "compilationUnitId": "basket",
+      "artifact": "out/BasketToken.sol/BasketToken.json",
+      "componentKind": "token",
+      "applicantSalt": "TODO",
+      "constructorArguments": [
+        "target:hook",
+        "target:vault",
+        "0x6D8889Bc0D4BdAB2D14db3b979491042B6691996",
+        "TODO_supply"
+      ],
+      "deploymentValueWei": "0",
+      "initializerValueWei": "0"
+    }
+  ],
+  "externalContracts": [
+    {
+      "schemaVersion": "programmable.custom-launch-external-contract.v1",
+      "chainId": "4663",
+      "caip2": "eip155:4663",
+      "address": "0xd0601CE157Db5bdC3162BbaC2a2C8aF5320D9EEC",
+      "runtimeCodeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "role": "basket-constituent:nvda",
+      "startBlock": "45898",
+      "mutability": {
+        "kind": "proxy",
+        "proxyType": "eip1967-beacon",
+        "beaconAddress": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "implementation": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2"
+      }
+    },
+    {
+      "schemaVersion": "programmable.custom-launch-external-contract.v1",
+      "chainId": "4663",
+      "caip2": "eip155:4663",
+      "address": "0xaF3D76f1834A1d425780943C99Ea8A608f8a93f9",
+      "runtimeCodeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "role": "basket-constituent:aapl",
+      "startBlock": "48276",
+      "mutability": {
+        "kind": "proxy",
+        "proxyType": "eip1967-beacon",
+        "beaconAddress": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "implementation": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2"
+      }
+    },
+    {
+      "schemaVersion": "programmable.custom-launch-external-contract.v1",
+      "chainId": "4663",
+      "caip2": "eip155:4663",
+      "address": "0x322F0929c4625eD5bAd873c95208D54E1c003b2d",
+      "runtimeCodeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "role": "basket-constituent:tsla",
+      "startBlock": "34767",
+      "mutability": {
+        "kind": "proxy",
+        "proxyType": "eip1967-beacon",
+        "beaconAddress": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "implementation": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2"
+      }
+    },
+    {
+      "schemaVersion": "programmable.custom-launch-external-contract.v1",
+      "chainId": "4663",
+      "caip2": "eip155:4663",
+      "address": "0x12f190a9F9d7D37a250758b26824B97CE941bF54",
+      "runtimeCodeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "role": "basket-constituent:amzn",
+      "startBlock": "48288",
+      "mutability": {
+        "kind": "proxy",
+        "proxyType": "eip1967-beacon",
+        "beaconAddress": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "implementation": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2"
+      }
+    }
+  ],
+  "pool": {
+    "tokenTargetId": "token",
+    "hookTargetId": "hook",
+    "fee": "TODO_dynamic_fee_flag",
+    "tickSpacing": 60,
+    "quoteCurrency": "0x0000000000000000000000000000000000000000"
+  },
+  "liquidityModel": {
+    "schemaVersion": "programmable.custom-launch-liquidity-model.v1",
+    "model": "project-provided-liquidity",
+    "declaredLaunchState": "liquidity-provided-by-launch",
+    "targetIds": [
+      "token",
+      "hook"
+    ]
+  },
+  "funding": {
+    "schemaVersion": "programmable.custom-launch-funding-intent.v2",
+    "mode": "wallet-transaction-value",
+    "valueWei": "TODO_initial_liquidity"
+  },
+  "projectMetadata": {
+    "schemaVersion": "programmable.project-metadata-input.v1",
+    "token": {
+      "name": "Basket",
+      "symbol": "BASKET"
+    },
+    "presentation": {
+      "description": "Hold the token, get paid in stocks. Every swap pays a fee that accrues to holders pro-rata by balance at the moment it lands. Settlement is batched: the basket is bought once for many holders at a time, so small shares stay worth collecting.",
+      "image": {
+        "sourcePath": "TODO_image.png"
+      },
+      "links": [
+        {
+          "kind": "github",
+          "uri": "https://github.com/xfajarr/packedv4"
+        },
+        {
+          "kind": "website",
+          "uri": "TODO"
+        },
+        {
+          "kind": "x",
+          "uri": "TODO"
+        },
+        {
+          "kind": "telegram",
+          "uri": "TODO"
+        }
+      ]
+    }
+  },
+  "profile": {
+    "schemaVersion": "programmable.custom-launch-profile-ref.v4",
+    "structuralProfileId": "programmable.custom-launch.robinhood-mainnet.v1",
+    "businessProfileId": "robinhood-production-launch",
+    "profileRevision": 1,
+    "profileVersion": "4.0.0"
+  },
+  "permitWindow": {
+    "validAfter": "0",
+    "deadline": "TODO_unix_ts"
+  },
+  "agentAttestation": {
+    "agentId": "TODO",
+    "checkedAt": "TODO",
+    "checks": []
+  },
+  "chainDeployment": "TODO \u2014 large const-heavy block, values are fixed in the v4 schema"
+}

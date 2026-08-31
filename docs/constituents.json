@@ -1,0 +1,119 @@
+{
+  "_note": "Verified on Robinhood Chain (4663) 2026-08-31. All four proxies share identical bytecode, so one runtimeCodeHash covers them. The beacon is an immutable baked into the proxy code, not an ERC-1967 storage slot.",
+  "chainId": "4663",
+  "caip2": "eip155:4663",
+  "sharedProxyRuntimeCodeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+  "beacon": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+  "implementation": {
+    "address": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2",
+    "name": "Stock",
+    "verified": true,
+    "codeBytes": 11614
+  },
+  "externalContracts": [
+    {
+      "schemaVersion": "programmable.custom-launch-external-contract.v1",
+      "chainId": "4663",
+      "caip2": "eip155:4663",
+      "address": "0xd0601CE157Db5bdC3162BbaC2a2C8aF5320D9EEC",
+      "runtimeCodeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "role": "basket-constituent:nvda",
+      "startBlock": "45898",
+      "mutability": {
+        "kind": "proxy",
+        "proxyType": "eip1967-beacon",
+        "beaconAddress": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "implementation": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2"
+      },
+      "_meta": {
+        "symbol": "NVDA",
+        "issuer": "NVIDIA",
+        "decimals": 18,
+        "totalSupplyAtAudit": "46067537000000000000000"
+      },
+      "_todo": [
+        "sourceEvidenceDigest",
+        "auditBlock",
+        "locator.byteOffset"
+      ]
+    },
+    {
+      "schemaVersion": "programmable.custom-launch-external-contract.v1",
+      "chainId": "4663",
+      "caip2": "eip155:4663",
+      "address": "0xaF3D76f1834A1d425780943C99Ea8A608f8a93f9",
+      "runtimeCodeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "role": "basket-constituent:aapl",
+      "startBlock": "48276",
+      "mutability": {
+        "kind": "proxy",
+        "proxyType": "eip1967-beacon",
+        "beaconAddress": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "implementation": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2"
+      },
+      "_meta": {
+        "symbol": "AAPL",
+        "issuer": "Apple",
+        "decimals": 18,
+        "totalSupplyAtAudit": "8346714011610000000000"
+      },
+      "_todo": [
+        "sourceEvidenceDigest",
+        "auditBlock",
+        "locator.byteOffset"
+      ]
+    },
+    {
+      "schemaVersion": "programmable.custom-launch-external-contract.v1",
+      "chainId": "4663",
+      "caip2": "eip155:4663",
+      "address": "0x322F0929c4625eD5bAd873c95208D54E1c003b2d",
+      "runtimeCodeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "role": "basket-constituent:tsla",
+      "startBlock": "34767",
+      "mutability": {
+        "kind": "proxy",
+        "proxyType": "eip1967-beacon",
+        "beaconAddress": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "implementation": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2"
+      },
+      "_meta": {
+        "symbol": "TSLA",
+        "issuer": "Tesla",
+        "decimals": 18,
+        "totalSupplyAtAudit": "6556045000000000000000"
+      },
+      "_todo": [
+        "sourceEvidenceDigest",
+        "auditBlock",
+        "locator.byteOffset"
+      ]
+    },
+    {
+      "schemaVersion": "programmable.custom-launch-external-contract.v1",
+      "chainId": "4663",
+      "caip2": "eip155:4663",
+      "address": "0x12f190a9F9d7D37a250758b26824B97CE941bF54",
+      "runtimeCodeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "role": "basket-constituent:amzn",
+      "startBlock": "48288",
+      "mutability": {
+        "kind": "proxy",
+        "proxyType": "eip1967-beacon",
+        "beaconAddress": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "implementation": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2"
+      },
+      "_meta": {
+        "symbol": "AMZN",
+        "issuer": "Amazon",
+        "decimals": 18,
+        "totalSupplyAtAudit": "5196215000000000000000"
+      },
+      "_todo": [
+        "sourceEvidenceDigest",
+        "auditBlock",
+        "locator.byteOffset"
+      ]
+    }
+  ]
+}
