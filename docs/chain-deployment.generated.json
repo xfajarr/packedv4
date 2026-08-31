@@ -1,0 +1,228 @@
+{
+  "schemaVersion": "programmable.custom-launch-chain-deployment.v1",
+  "chainDeploymentId": "robinhood-mainnet-custom-launch-v1",
+  "chainId": "4663",
+  "caip2": "eip155:4663",
+  "finality": {
+    "schemaVersion": "programmable.custom-launch-finality-policy-ref.v1",
+    "policyId": "TODO<string>",
+    "policyRevision": "TODO<integer>",
+    "policyDigest": "TODO<string>"
+  },
+  "foundationSourceCommitment": "0xe87f5edc2dc839bd87a26a80cb53f14b021e603a1753d27aae3a02862058d730",
+  "deploymentEvidence": {
+    "schemaVersion": "programmable.robinhood-atomic-root-deployment-evidence.v1",
+    "deploymentId": "robinhood-mainnet-custom-launch-v1",
+    "chainId": "4663",
+    "coveredContracts": [
+      "programmableLaunchStampRouter",
+      "graphFactory",
+      "permitAuthority"
+    ],
+    "transactionHash": "TODO<string>",
+    "from": "0x032b1c7b96793717F0BD2f11eb86cd10CdefC4a3",
+    "to": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "valueWei": "0",
+    "selector": "0x82ad56cb",
+    "calldataHash": "0x3ba04469085b17e12843a94c154a335c9c384837f8f6531f179cb4915fd237d9",
+    "calldataBytes": 33412,
+    "nonce": "TODO<string>",
+    "transactionIndex": "TODO<string>",
+    "receiptStatus": "1",
+    "blockNumber": "TODO<string>",
+    "blockHash": "TODO<string>",
+    "receiptLogs": [],
+    "receiptLogsDigest": "TODO<string>",
+    "providerReadbacks": [],
+    "resultingContracts": [],
+    "ethereumFinalityEvidence": {
+      "schemaVersion": "programmable.robinhood-l2-checkpoint-ethereum-finality.v1",
+      "profile": {
+        "schemaVersion": "programmable.custom-launch-profile-ref.v4",
+        "structuralProfileId": "programmable.custom-launch.robinhood-mainnet.v1",
+        "businessProfileId": "robinhood-production-launch",
+        "admissionDescriptorDigest": "sha256:99b4ccabdaaf143bad28a8f6af441a1b93e1f113d0179236328b7fa594d1f948",
+        "admissionPolicyDigest": "sha256:31e6b286ca839b31cb1edfe30c05d9f334892f3d84377961dc10b93959c7e216",
+        "admissionBindingDigest": "sha256:f31643e6e9ff6d5409d59a2fc3ac7fb5ac9cfcb3af08e95c9478bc95ddfa66a2",
+        "admissionSchemaDigest": "sha256:a28a6de6208d6ba7b65b4b706174509570955ba9ce9714624bcb2046ab7beae7",
+        "profileRevision": 1,
+        "profileVersion": "4.0.0",
+        "profileDigest": "sha256:484b1dc6e9091804fabc230f2b3a7504940fa00264f8e66e82a66a951e71f1a0"
+      },
+      "l2Checkpoint": {
+        "blockNumber": "TODO<string>",
+        "blockHash": "TODO<string>"
+      },
+      "batchNumber": "TODO<string>",
+      "l2Providers": [],
+      "ethereumProviders": [],
+      "rollup": "0x23A19d23e89166adedbDcB432518AB01e4272D94",
+      "sequencerInbox": "0xBd0D173EEb87D57A09521c24388a12789F33ba96",
+      "postingTransactionHash": "TODO<string>",
+      "postingBlockNumber": "TODO<string>",
+      "postingBlockHash": "TODO<string>",
+      "postingLogIndex": "TODO<string>",
+      "ethereumFinalizedCheckpoint": {
+        "blockNumber": "TODO<string>",
+        "blockHash": "TODO<string>",
+        "tag": "finalized"
+      },
+      "observedAt": "TODO<string>",
+      "captureClosureDigest": "TODO<string>",
+      "postingEventDigest": "TODO<string>",
+      "l1EvidenceDigest": "TODO<string>",
+      "evidenceDigest": "TODO<string>"
+    },
+    "evidenceDigest": "TODO<string>",
+    "sourceVerification": {
+      "sourcifyProviderMatchCoveredContracts": [
+        "programmableLaunchStampRouter",
+        "graphFactory"
+      ],
+      "exactByteSourceBuildTransactionCoveredContracts": [
+        "programmableLaunchStampRouter",
+        "graphFactory"
+      ],
+      "officialSourcePinnedCoveredContracts": [
+        "permitAuthority"
+      ]
+    }
+  },
+  "permit2GenesisProvenance": {
+    "schemaVersion": "programmable.custom-launch-genesis-provenance.v1",
+    "kind": "genesis-predeploy",
+    "address": "0x000000000022D473030F116dDEE9F6B43aC78BA3",
+    "startBlock": "0",
+    "genesisSourceUrl": "https://cdn.robinhood.com/assets/generated_assets/hoodchain_docsite/chain-node-configs/robinhood-genesis.json",
+    "genesisSourceDigest": "sha256:353e6f6441b47695b41cee0c3645cde8dd7492d2f7f574bfb6aa4371e41bb6ba",
+    "allocRuntimeCodeBytes": 9152,
+    "providerReadbacks": [],
+    "evidenceDigest": "TODO<string>"
+  },
+  "permitAuthoritySourceProvenance": {
+    "schemaVersion": "programmable.custom-launch-deployment-evidence.v1",
+    "kind": "official-source-pinned",
+    "address": "0xeD617CE7f82e2AB589aDeFFD319D1D872Bc8De06",
+    "transactionHash": "TODO<string>",
+    "blockNumber": "TODO<string>",
+    "blockHash": "TODO<string>",
+    "sourceCommitment": "sha256:4591dc35029cba2a869f91919cb3cf7e7c68f26727cc68e4b03d99cdf1bc2ebb",
+    "evidenceDigest": "TODO<string>",
+    "configurationEvidence": {
+      "schemaVersion": "programmable.safe-configuration-evidence.v1",
+      "finalized": true,
+      "blockNumber": "TODO<string>",
+      "blockHash": "TODO<string>",
+      "proxyRuntimeCodeHash": "0xd7d408ebcd99b2b70be43e20253d6d92a8ea8fab29bd3be7f55b10032331fb4c",
+      "singleton": {
+        "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
+        "runtimeCodeHash": "0x1fe2df852ba3299d6534ef416eefa406e56ced995bca886ab7a553e6d0c5e1c4",
+        "version": "1.4.1",
+        "sourceCommitment": "sha256:4591dc35029cba2a869f91919cb3cf7e7c68f26727cc68e4b03d99cdf1bc2ebb"
+      },
+      "fallbackHandler": "0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99",
+      "owners": [
+        "0x032b1c7b96793717F0BD2f11eb86cd10CdefC4a3",
+        "0x2Bb333d48DFAF1596D9036671d2E43168994249E"
+      ],
+      "threshold": 1,
+      "nonce": "0",
+      "modules": [],
+      "modulesNext": "0x0000000000000000000000000000000000000001",
+      "guard": null,
+      "fallbackHandlerRuntimeCodeHash": "0x7c6007a5d711cea8dfd5d91f5940ec29c7f200fe511eb1fc1397b367af3c42f9",
+      "singletonSlot": "0x00000000000000000000000041675c099f32341bf84bfc5382af534df5c7461a",
+      "fallbackHandlerSlot": "0x000000000000000000000000fd0732dc9e303f09fcef3a7388ad10a83459ec99",
+      "guardSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "primaryProvider": {
+        "providerId": "quicknode",
+        "trustDomain": "quicknode.com",
+        "evidenceDigest": "TODO<string>"
+      },
+      "secondaryProvider": {
+        "providerId": "alchemy",
+        "trustDomain": "alchemy.com",
+        "evidenceDigest": "TODO<string>"
+      },
+      "ethereumFinalityEvidence": {
+        "schemaVersion": "programmable.robinhood-l2-checkpoint-ethereum-finality.v1",
+        "profile": {
+          "schemaVersion": "programmable.custom-launch-profile-ref.v4",
+          "structuralProfileId": "programmable.custom-launch.robinhood-mainnet.v1",
+          "businessProfileId": "robinhood-production-launch",
+          "admissionDescriptorDigest": "sha256:99b4ccabdaaf143bad28a8f6af441a1b93e1f113d0179236328b7fa594d1f948",
+          "admissionPolicyDigest": "sha256:31e6b286ca839b31cb1edfe30c05d9f334892f3d84377961dc10b93959c7e216",
+          "admissionBindingDigest": "sha256:f31643e6e9ff6d5409d59a2fc3ac7fb5ac9cfcb3af08e95c9478bc95ddfa66a2",
+          "admissionSchemaDigest": "sha256:a28a6de6208d6ba7b65b4b706174509570955ba9ce9714624bcb2046ab7beae7",
+          "profileRevision": 1,
+          "profileVersion": "4.0.0",
+          "profileDigest": "sha256:484b1dc6e9091804fabc230f2b3a7504940fa00264f8e66e82a66a951e71f1a0"
+        },
+        "l2Checkpoint": {
+          "blockNumber": "TODO<string>",
+          "blockHash": "TODO<string>"
+        },
+        "batchNumber": "TODO<string>",
+        "l2Providers": [],
+        "ethereumProviders": [],
+        "rollup": "0x23A19d23e89166adedbDcB432518AB01e4272D94",
+        "sequencerInbox": "0xBd0D173EEb87D57A09521c24388a12789F33ba96",
+        "postingTransactionHash": "TODO<string>",
+        "postingBlockNumber": "TODO<string>",
+        "postingBlockHash": "TODO<string>",
+        "postingLogIndex": "TODO<string>",
+        "ethereumFinalizedCheckpoint": {
+          "blockNumber": "TODO<string>",
+          "blockHash": "TODO<string>",
+          "tag": "finalized"
+        },
+        "observedAt": "TODO<string>",
+        "captureClosureDigest": "TODO<string>",
+        "postingEventDigest": "TODO<string>",
+        "l1EvidenceDigest": "TODO<string>",
+        "evidenceDigest": "TODO<string>"
+      },
+      "atomicRootStateEvidenceDigest": "TODO<string>",
+      "evidenceDigest": "TODO<string>"
+    }
+  },
+  "externalRootDeploymentEvidence": [],
+  "contracts": {
+    "programmableLaunchStampRouter": {
+      "address": "TODO<string>",
+      "runtimeCodeHash": "TODO<string>"
+    },
+    "permitAuthority": {
+      "address": "TODO<string>",
+      "runtimeCodeHash": "TODO<string>"
+    },
+    "graphFactory": {
+      "address": "TODO<string>",
+      "runtimeCodeHash": "TODO<string>"
+    },
+    "poolManager": {
+      "address": "TODO<string>",
+      "runtimeCodeHash": "TODO<string>"
+    },
+    "positionManager": {
+      "address": "TODO<string>",
+      "runtimeCodeHash": "TODO<string>"
+    },
+    "stateView": {
+      "address": "TODO<string>",
+      "runtimeCodeHash": "TODO<string>"
+    },
+    "v4Quoter": {
+      "address": "TODO<string>",
+      "runtimeCodeHash": "TODO<string>"
+    },
+    "permit2": {
+      "address": "TODO<string>",
+      "runtimeCodeHash": "TODO<string>"
+    },
+    "universalRouter": {
+      "address": "TODO<string>",
+      "runtimeCodeHash": "TODO<string>"
+    }
+  }
+}

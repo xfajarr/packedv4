@@ -1,0 +1,38 @@
+No files changed, compilation skipped
+
+Ran 6 tests for test/BasketHook.t.sol:BasketHookTest
+[PASS] test_addressCarriesExactPermissions() (gas: 2800)
+[PASS] test_buyIsNotChargedTwice() (gas: 67843)
+[PASS] test_buyRoutes2PercentToHolders() (gas: 72981)
+[PASS] test_callbacksRejectNonPoolManager() (gas: 15920)
+[PASS] test_rejectsPoolWithoutNativeEth() (gas: 27214)
+[PASS] test_sellRoutes3PercentToHolders() (gas: 72893)
+Suite result: ok. 6 passed; 0 failed; 0 skipped; finished in 38.28ms (207.25µs CPU time)
+
+Ran 8 tests for test/BasketToken.t.sol:BasketTokenTest
+[PASS] testFuzz_totalAccruedNeverExceedsDeposited(uint96,uint96,uint96) (runs: 256, μ: 127889, ~: 131080)
+[PASS] test_accruesProRataByBalanceAtFeeTime() (gas: 121987)
+[PASS] test_buyingLateEarnsNothingFromEarlierFees() (gas: 182067)
+[PASS] test_claimOnBehalf_paysHolderAndTipsCaller() (gas: 183132)
+[PASS] test_feeBeforeAnySupplyIsHeldNotBurned() (gas: 689164)
+[PASS] test_onlyHookCanDeposit() (gas: 18244)
+[PASS] test_selfClaimTakesNoTip() (gas: 143768)
+[PASS] test_shareIsFrozenAtAccrual_sellingDoesNotClawBack() (gas: 202740)
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 121.45ms (108.23ms CPU time)
+
+Ran 12 tests for test/BasketVault.t.sol:BasketVaultTest
+[PASS] testFuzz_vaultNeverRetainsEth(uint96,uint96) (runs: 256, μ: 1271467, ~: 1271719)
+[PASS] test_basketIsImmutable() (gas: 23432)
+[PASS] test_batchSplitsEachLegProRata() (gas: 1292228)
+[PASS] test_batchingIsCheaperPerHolderThanIndividualSettlement() (gas: 9803504)
+[PASS] test_dustGoesToLastHolderNotStuckInVault() (gas: 1285837)
+[PASS] test_onlyVaultCanPullFromToken() (gas: 85420)
+[PASS] test_rejectsDuplicateHolder() (gas: 121196)
+[PASS] test_rejectsLengthMismatch() (gas: 45468)
+[PASS] test_rejectsUnsortedHolders() (gas: 155663)
+[PASS] test_rejectsWeightsThatDoNotSumToBips() (gas: 46063)
+[PASS] test_revertsWhenNothingAccrued() (gas: 27144)
+[PASS] test_settleBuysWholeBasketAndDeliversToHolder() (gas: 1091093)
+Suite result: ok. 12 passed; 0 failed; 0 skipped; finished in 122.38ms (129.97ms CPU time)
+
+Ran 3 test suites in 136.92ms (282.11ms CPU time): 26 tests passed, 0 failed, 0 skipped (26 total tests)

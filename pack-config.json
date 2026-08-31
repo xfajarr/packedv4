@@ -149,7 +149,7 @@
   "pool": {
     "tokenTargetId": "token",
     "hookTargetId": "hook",
-    "fee": "TODO_dynamic_fee_flag",
+    "fee": 8388608,
     "tickSpacing": 60,
     "quoteCurrency": "0x0000000000000000000000000000000000000000"
   },
@@ -164,8 +164,8 @@
   },
   "funding": {
     "schemaVersion": "programmable.custom-launch-funding-intent.v2",
-    "mode": "wallet-transaction-value",
-    "valueWei": "TODO_initial_liquidity"
+    "mode": "none",
+    "valueWei": "0"
   },
   "projectMetadata": {
     "schemaVersion": "programmable.project-metadata-input.v1",
@@ -210,9 +210,40 @@
     "deadline": "TODO_unix_ts"
   },
   "agentAttestation": {
-    "agentId": "TODO",
-    "checkedAt": "TODO",
-    "checks": []
+    "agentId": "claude-opus-5",
+    "checkedAt": "2026-08-31T14:37:14Z",
+    "checks": [
+      {
+        "checkId": "forge.test.suite",
+        "evidence": "docs/evidence/forge-test.txt"
+      },
+      {
+        "checkId": "forge.build.sizes",
+        "evidence": "docs/evidence/contract-sizes.txt"
+      },
+      {
+        "checkId": "hook.permission-bits.0xC8-mined-and-asserted",
+        "evidence": "test/BasketHook.t.sol"
+      },
+      {
+        "checkId": "hook.callback-authentication.onlyPoolManager",
+        "evidence": "src/BasketHook.sol"
+      },
+      {
+        "checkId": "no-selfdestruct-no-callcode",
+        "evidence": "docs/evidence/opcode-scan.txt"
+      },
+      {
+        "checkId": "external-contracts.onchain-verified",
+        "evidence": "docs/evidence/constituents-verified.json"
+      },
+      {
+        "checkId": "vault.no-eth-or-asset-retained.fuzz",
+        "evidence": "test/BasketVault.t.sol"
+      }
+    ]
   },
-  "chainDeployment": "TODO \u2014 large const-heavy block, values are fixed in the v4 schema"
+  "chainDeployment": {
+    "_source": "served by /v4/chains/4663/capabilities once live; 95 of 162 values are schema consts, the rest describe Programmable's own infra deployment, not ours"
+  }
 }

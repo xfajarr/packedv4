@@ -1,0 +1,4 @@
+─── opcode scan ───
+BasketHook   runtime   2894 bytes | SELFDESTRUCT(ff)/CALLCODE(f2) opcode scan: CLEAN
+BasketToken  runtime   3049 bytes | SELFDESTRUCT(ff)/CALLCODE(f2) opcode scan: CLEAN
+BasketVault  runtime   2670 bytes | SELFDESTRUCT(ff)/CALLCODE(f2) opcode scan: CLEAN
