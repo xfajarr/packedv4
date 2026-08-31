@@ -2,5 +2,15 @@
 src = "src"
 out = "out"
 libs = ["lib"]
-
-# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
+# Programmable admission requires this exact compiler
+solc = "0.8.26"
+evm_version = "cancun"
+via_ir = false
+optimizer = true
+optimizer_runs = 200
+remappings = [
+    "v4-core/=lib/v4-core/",
+    "v4-periphery/=lib/v4-periphery/",
+    "forge-std/=lib/forge-std/src/",
+    "solmate/=lib/v4-core/lib/solmate/",
+]
